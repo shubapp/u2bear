@@ -109,7 +109,9 @@ function addYoutubeResults(results){
 	$(".result").hover(function(){
 		$(this).find(".overlay").addClass("active");
 	},function(){
-		$(this).find(".overlay").removeClass("active");
+		if($(this).find(".downloading").length==0){
+			$(this).find(".overlay").removeClass("active");
+		}
 	});
 
 	$(".result .fa-film").click(downloadVideo);
