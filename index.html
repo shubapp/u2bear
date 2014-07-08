@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+
+	<title>Youtubber</title>
+
+	<link rel="stylesheet" type="text/css" href="css/alef.css">
+	<link rel="stylesheet" type="text/css" href="css/opensans.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/video-js.css">
+	<link rel="stylesheet" type="text/css" href="css/interface.css">
+</head>
+<body>
+<div class="titleBar">
+	<div class="switches active" id="youtubeSwitch"><i class="fa fa-youtube"></i></div>
+	<div class="switches" id="localSwitch"><i class="fa fa-folder"></i></div>
+
+	<input dir="auto" type="search" id="search" placeholder="Search" />
+
+	<div class="titleButton" id="titleClose"><i class="fa fa-times-circle"></i></div>
+	<div class="titleButton" id="titleMax"><i class="fa fa-external-link"></i></div>
+	<div id="titleMin" class="titleButton"><i class="fa fa-minus-square"></i></div>
+	<div class="titleButton" id="titleDebug"><i class="fa fa-bug"></i></div>
+</div>
+<center>
+	<video id="player" class="video-js vjs-default-skin" controls preload="none" width="" height=""
+      poster="u2bearFlat.png"
+      data-setup="{}">
+	 <source id="source" src="" type='video/mp4' />
+	</video>
+
+	<div id="resultContainer">
+		
+	</div>
+</center>
+<div class="playerBar">
+	<i id="playerBackward" class='fa fa-step-backward'></i>
+	<i id="playerStop" class='fa fa-stop'></i>
+	<i id="titleBackground" class="fa fa-video-camera active"></i>
+	<i id="playerPlay" class='fa fa-play'></i>
+	<i id="playerForward" class='fa fa-step-forward'></i>
+	<i id="playerRepeat" class='fa fa-retweet'></i>
+	<!-- <i class='fa fa-spinner fa-spin'></i> -->
+	<span id="playedName" dir="auto"></span>
+	<i id="nextArrow" class='fa fa-long-arrow-right hidden'></i>
+	<span id="playedNextName" dir="auto" class="hidden"></span>
+</div>
+<script type="text/javascript" src="lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="lib/video.js"></script>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

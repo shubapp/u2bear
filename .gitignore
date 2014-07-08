@@ -1,0 +1,7 @@
+*.7z
+/docs/*
+!/docs/buildInstractions.md
+/images/*
+/videos/*
+/songs/*
+/node_modules

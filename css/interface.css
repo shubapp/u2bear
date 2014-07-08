@@ -1,0 +1,215 @@
+body{
+	font-family: 'Open Sans','Alef';
+	/*background: -webkit-linear-gradient(-45deg,rgb(184, 179, 179),white);*/
+	background-color:rgb(31, 30, 30);
+	margin-top: 3.7em;
+	overflow: hidden;
+}
+#search{
+	outline:0;
+	padding-left:1em;
+	padding-top: 4px;
+	width: 20%;
+	border-radius: 7px;
+	background-color: rgb(255, 255, 255);
+	color: black;
+	font-size: 1em;
+	margin-top: -7px;
+	-webkit-app-region: no-drag;
+	float: left;
+	margin-left: 70px;
+}
+#resultContainer{
+	overflow-y: auto;
+	overflow-x: hidden;
+	margin-right: -9px;
+	top: 3.8em;
+	bottom: 2.7em;
+	left: 0;
+	right: 0.6em;
+	position: absolute;
+	background-image: url('../u2bearFlat.png');
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-size:50%;
+}
+.result {
+	position: relative;
+	display: inline-block;
+	margin: 1em 2em;
+	width: 25em;
+	background-color: rgb(58, 58, 58);
+	padding:1em 0;
+	height: 20em;
+}
+.result img{
+	width: 98%;
+}
+.result .overlay.active{
+	background-color: rgba(12, 12, 12, 0.26);
+	top:0;
+	visibility: visible;
+}
+.result .overlay {
+	-webkit-transition:top 1s;
+	position: absolute;
+	top:100%;
+	bottom:0;
+	left:0;
+	right:0;
+	visibility:hidden;
+	font-size: 3.2em;
+	color: white;
+	text-shadow: 2px 2px black;
+	overflow: hidden;
+}
+.result .overlay i{
+	margin: 40% 0.5em 22%;
+	cursor:pointer;
+}
+.result .overlay i:hover{
+	text-shadow:none;
+	padding-top: 1px;
+}
+
+.result .overlay .progressbarContainer{
+	height: 15%;
+	background-color: rgb(87, 87, 86);
+	padding: 0 10px;
+	visibility: hidden;
+}
+.result .overlay .progressbarContainer:before {
+	content: attr(data-width);
+	font-size: 0.5em;
+	position: absolute;
+	margin: 2% auto;
+	width: 100%;
+	left: 0;
+	right: 0;
+	color: black;
+	z-index: 10;
+	text-shadow:none;
+}
+.result .overlay .progressbarValue{
+	background-color: white;
+	height: 30%;
+	border-radius: 4px;
+	float: left;
+	margin: 5% 0;
+	position: relative;
+	-webkit-transition: width 1s;
+}
+
+.downloading+.progressbarContainer{
+	visibility:  visible !important;
+}
+
+.downloading{
+	color: rgb(255, 255, 65);
+}
+.success{
+	color: rgb(79, 226, 79);
+	/*cursor: default !important;*/
+}
+.failure{
+	color: rgb(255, 45, 45);
+}
+
+.playerBar{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	color: white;
+	font-size: 1.5em;
+	background-color: rgb(77, 77, 77);
+	width: 100%;
+	cursor: default;
+	-webkit-user-select: none;
+}
+.playerBar i{
+	margin: 0.4em;
+	cursor: pointer;
+	text-shadow: 1px 1px black;
+}
+.titleBar{
+	background-color:rgb(224, 224, 224);
+	margin: -8px;
+	height: 1.5em;
+	color: white;
+	text-align: center;
+	font-size: 1.5em;
+	padding-top: 0.7em;
+	padding-bottom: 0.3em;
+	position: fixed;
+	top: 8px;
+	width: 100%;
+	border-bottom: 1px black solid;
+	z-index: 10;
+	-webkit-user-select: none;
+  	-webkit-app-region: drag;
+}
+.switches{
+	float: left;
+	margin-left: 1.5em;
+	color:gray;
+	cursor: pointer;
+	-webkit-app-region: no-drag;
+}
+.switches.active{
+	color: rgb(255, 45, 45);
+}
+.titleButton{
+	float: right;
+	cursor: pointer;
+	margin-right: 1em;
+	color: gray;
+	font-weight: bold;
+  	-webkit-app-region: no-drag;
+  	-webkit-transition: color 1s;
+}
+
+
+.titleButton:hover{
+	color:rgb(255, 45, 45);
+}
+
+#player{
+	width: 100%;
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 4.3em;
+	margin: 0 auto;
+}
+#player.active{
+	display: block;
+	z-index: 100;
+}
+#player.background{
+	display: none;
+}
+.vidTitle{
+	height: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 1.5em;
+	color:white;
+}
+#titleBackground.active{
+	color: rgb(255, 45, 45);
+}
+
+.hidden{
+	visibility: hidden;
+	display: none;
+}
+
+#playedNextName,#nextArrow{
+	font-size: 0.6em;
+}
+
+#playerRepeat.active{
+	color:rgb(255, 45, 45);
+}

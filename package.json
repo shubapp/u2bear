@@ -1,0 +1,21 @@
+{
+	"name":"youtubber",
+	"window":{
+		// "position": "mouse",
+		"title": "youtubber",
+		"icon": "u2bearFlat.png",
+		"width":1450,
+		"height":800
+		,"toolbar":false
+		,"frame":false
+	},
+	"webkit": {
+	    "plugin": true
+	},
+	"dependencies": {
+	    "ytdl": "0.2.8",
+	    "youtube-search": "0.1.4",
+	    "youtube-mp3": "0.1.2"
+	},
+	"main":"index.html"
+}
