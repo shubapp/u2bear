@@ -22,6 +22,7 @@ Think about it, youll get it...
 ## How to start it?
 ### Download it
 1. [here](https://www.dropbox.com/s/9694sxl0exd84pv/u2bear.zip)
+
 ### Or
 1. `git clone https://github.com/shubapp/u2bear.git`
 2. `npm install`
