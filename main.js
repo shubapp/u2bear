@@ -371,6 +371,15 @@ function initGui(){
 	}}));
     tray.menu = menu;
 
+	win.on('minimize', function() {
+      this.hide();
+    });
+    
+	tray.on('click', function() {
+		win.show();
+		win.focus();
+	});
+
     $("#titleClose").click(function(){
     	win.close();
     });
@@ -449,13 +458,6 @@ function initGui(){
 	});
 	
 
-	win.on('minimize', function() {
-      this.hide();
-      tray.on('click', function() {
-        win.show();
-        win.focus();
-      });
-    });
 
     videojs("player").on("ended", videoEnded);
 
