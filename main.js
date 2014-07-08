@@ -374,7 +374,7 @@ function initGui(){
 	win.on('minimize', function() {
       this.hide();
     });
-    
+
 	tray.on('click', function() {
 		win.show();
 		win.focus();
@@ -464,10 +464,10 @@ function initGui(){
     $(document).bind('keydown',function(event){
     	//esc
     	if(event.keyCode==27){
-    		if(win.isFullscreen){
-    			win.toggleFullscreen();
-    		}else if(playerOn){
+    		if(playerOn){
     			tooglePlayer(playerOptions.STOP);
+    		}else if(win.isFullscreen){
+    			win.toggleFullscreen();
     		}else{
     			win.close();
     		}
