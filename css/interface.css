@@ -123,6 +123,7 @@ body{
 	font-size: 1.5em;
 	background-color: rgb(77, 77, 77);
 	width: 100%;
+	height: 1.8em;
 	cursor: default;
 	-webkit-user-select: none;
 }

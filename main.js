@@ -356,7 +356,20 @@ function videoEnded(){
 
 function initGui(){
 	var win = gui.Window.get();
-    var tray;
+    var tray = new gui.Tray({title: 'U2Bear', icon: 'u2bearFlat.png' });
+    var menu = new gui.Menu();
+	menu.append(new gui.MenuItem({ type: 'normal', label: 'Open',click: function() {
+        win.show();
+        win.focus();
+    }}));
+	menu.append(new gui.MenuItem({ type: 'checkbox', label: 'Always on top',click:function(){
+		win.setAlwaysOnTop(this.checked);
+	}}));
+	menu.append(new gui.MenuItem({ type: 'separator'}));
+	menu.append(new gui.MenuItem({ type: 'normal', label: 'Close',click: function(){
+		win.close();
+	}}));
+    tray.menu = menu;
 
     $("#titleClose").click(function(){
     	win.close();
@@ -438,13 +451,9 @@ function initGui(){
 
 	win.on('minimize', function() {
       this.hide();
-
-      tray = new gui.Tray({ icon: 'u2bearFlat.png' });
-
       tray.on('click', function() {
         win.show();
-        this.remove();
-        tray = null;
+        win.focus();
       });
     });
 
