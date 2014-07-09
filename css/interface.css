@@ -126,11 +126,13 @@ body{
 	height: 1.8em;
 	cursor: default;
 	-webkit-user-select: none;
+	-webkit-app-region: drag;
 }
 .playerBar i{
 	margin: 0.4em;
 	cursor: pointer;
 	text-shadow: 1px 1px black;
+	-webkit-app-region: no-drag;
 }
 .titleBar{
 	background-color:rgb(224, 224, 224);

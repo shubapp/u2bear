@@ -13,7 +13,7 @@ rm u2bear.exe
 ```batch
 7z F:\git\youtuber F:\git\temp\release\u2bear.zip
 ```
-4) Delete videos, songs, git and images directories from the zip
+4) Delete videos, songs, git, docs, images directories from the zip
 
 5) Copy & rename u2bear.zip to u2bear.nw
 ```batch
