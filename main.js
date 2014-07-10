@@ -86,14 +86,14 @@ function addYoutubeResults(results){
 	for (;maxIndex< displayedVids.length ; maxIndex++) {
 		results[maxIndex - (displayedVids.length-results.length)].title = validateVideoName(results[maxIndex - (displayedVids.length-results.length)].title);
 		var addedElem = $("<span index='"+ maxIndex +"' class='result'><div class='overlay'><i class='fa fa-info-circle'></i>"+
-			"<i class='fa fa-headphones'></i><i class='fa fa-film'></i><i class='fa fa-plus-square-o'></i><div class='progressbarContainer' data-width='0%'><div class='progressbarValue'></div></div></div><img src=\"" +
+			"<i class='fa fa-headphones'></i><i class='fa fa-film'></i><div class='progressbarContainer' data-width='0%'><div class='progressbarValue'></div></div></div><img src=\"" +
 			results[maxIndex - (displayedVids.length-results.length)].thumbnails[0].url +"\" /><div dir='auto' class='vidTitle'>" + 
 			results[maxIndex - (displayedVids.length-results.length)].title +"</div></span>");
 		
 		$("#resultContainer").append(addedElem);
 
 		if($.inArray(results[maxIndex - (displayedVids.length-results.length)].title+'.mp4',localVids)!=-1) {
-			$(".result[index=" +maxIndex + "]").find(".fa-film,.fa-plus-square-o").addClass("success");
+			$(".result[index=" +maxIndex + "]").find(".fa-film").addClass("success");
 		}
 
 		if($.inArray(results[maxIndex - (displayedVids.length-results.length)].title+'.mp3',localSongs)!=-1) {
@@ -101,7 +101,7 @@ function addYoutubeResults(results){
 		}
 
 		if(currentlyDownloading[results[maxIndex - (displayedVids.length-results.length)].title]) {
-			$(".result[index=" +maxIndex + "]").find(".fa-film,.fa-plus-square-o").addClass("downloading");
+			$(".result[index=" +maxIndex + "]").find(".fa-film").addClass("downloading");
 			$(".result[index=" +maxIndex + "]").addClass("active");
 		}
 	}
@@ -114,9 +114,9 @@ function addYoutubeResults(results){
 		}
 	});
 
-	$(".result .fa-film").click(downloadVideo);
+	// $(".result .fa-film").click(downloadVideo);
 	$(".result .fa-headphones").click(downloadMp3);
-	$(".result .fa-plus-square-o").click(enqueYoutubeVideo);
+	$(".result .fa-film").click(enqueYoutubeVideo);
 
 	stoppedLoading = true;
 }
@@ -306,9 +306,10 @@ function downloadVideo(){
 }
 
 function downloadVideoParams(chosenVid, cb){
+	var resultElem = chosenVid.element;
+	resultElem.find(".fa-film").addClass("downloading");
+	resultElem.addClass("active");
 	if ((currentlyDownloading.currentSize< currentlyDownloading.MAX_DOWNLOADS) && (!currentlyDownloading[chosenVid.title])) {
-		var resultElem = chosenVid.element;
-		var started = false;
 		downloadFile(chosenVid.thumbnails[0].url, IMAGES_DIRECTORY +chosenVid.title+'.mp4.jpg');
 		currentlyDownloading.currentSize++;
 		currentlyDownloading[chosenVid.title] = true;
@@ -316,26 +317,22 @@ function downloadVideoParams(chosenVid, cb){
 			{filter: function(format) { return format.container === 'mp4';} , 
 			quality:'highest'}
 		);
+
+
 		downloadVid.pipe(fs.createWriteStream(VIDEOS_DIRECTORY+chosenVid.title+'.mp4'));
 		downloadVid.on('info',function(info,format){
 			this.size = 1 * format.size;
 		});
 		downloadVid.on('data', function(chunk) {
-			if (!started){
-				started=true;
-				resultElem.find(".fa-film,.fa-plus-square-o").addClass("downloading");
-				resultElem.addClass("active");
-			}else{
-		  		resultElem.find(".progressbarValue").css("width",Math.round(this._readableState.pipes.bytesWritten / this.size * 100) + "%");
-		  		resultElem.find(".progressbarContainer").attr("data-width",Math.round(this._readableState.pipes.bytesWritten / this.size * 100) + "%");
-			}
+	  		resultElem.find(".progressbarValue").css("width",Math.round(this._readableState.pipes.bytesWritten / this.size * 100) + "%");
+	  		resultElem.find(".progressbarContainer").attr("data-width",Math.round(this._readableState.pipes.bytesWritten / this.size * 100) + "%");
 		});
 		downloadVid.on('end',function(){
 			delete(currentlyDownloading[chosenVid.title]);
 			currentlyDownloading.currentSize--;
-			resultElem.find(".fa-film,.fa-plus-square-o").removeClass("downloading");
+			resultElem.find(".fa-film").removeClass("downloading");
 			resultElem.removeClass("active");
-			resultElem.find(".fa-film,.fa-plus-square-o").addClass("success");
+			resultElem.find(".fa-film").addClass("success");
 			localVids.push(chosenVid.title+'.mp4');
 			if(cb){
 				cb();
@@ -345,15 +342,11 @@ function downloadVideoParams(chosenVid, cb){
 			delete(currentlyDownloading[chosenVid.title]);
 			currentlyDownloading.currentSize--;
 			fs.unlink(VIDEOS_DIRECTORY+chosenVid.title+'.mp4');
-			resultElem.find(".fa-film,.fa-plus-square-o").removeClass("downloading");
+			resultElem.find(".fa-film").removeClass("downloading");
 			resultElem.removeClass("active");
-			resultElem.find(".fa-film,.fa-plus-square-o").addClass("failure");
+			resultElem.find(".fa-film").addClass("failure");
 		});
 	}
-}
-
-function videoEnded(){
-	nextVideo();
 }
 
 function initGui(){
@@ -415,11 +408,12 @@ function initGui(){
 	});
 
 	function nextVideo(){
-		if (currListIndex<playList.length-1){
+		if (currListIndex<playList.length){
 			tooglePlayer(playerOptions.STOP);
 			currListIndex++;
-		}else if(repeatOn){
-			currListIndex=0;
+			if((currListIndex==playList.length) && (repeatOn)){
+				currListIndex=0;
+			}
 		}
 		playVideos();
 	}
@@ -461,7 +455,7 @@ function initGui(){
 	
 
 
-    videojs("player").on("ended", videoEnded);
+    videojs("player").on("ended", nextVideo);
 
     $(document).bind('keydown',function(event){
     	//esc
