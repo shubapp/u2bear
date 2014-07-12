@@ -9,15 +9,13 @@ body{
 	outline:0;
 	padding-left:1em;
 	padding-top: 4px;
-	width: 20%;
+	width: 75%;
 	border-radius: 7px;
 	background-color: rgb(255, 255, 255);
 	color: black;
 	font-size: 1em;
 	margin-top: -7px;
 	-webkit-app-region: no-drag;
-	float: left;
-	margin-left: 70px;
 }
 #resultContainer{
 	overflow-y: auto;
@@ -139,21 +137,25 @@ body{
 	margin: -8px;
 	height: 1.5em;
 	color: white;
-	text-align: center;
 	font-size: 1.5em;
 	padding-top: 0.7em;
 	padding-bottom: 0.3em;
 	position: fixed;
+	display: flex;
 	top: 8px;
-	width: 100%;
+	width: 95%;
 	border-bottom: 1px black solid;
 	z-index: 10;
 	-webkit-user-select: none;
   	-webkit-app-region: drag;
+  	padding-left: 1.5em;
+  	padding-right: 1.5em;
+}
+.titleBar>span{
+	flex:1;
 }
 .switches{
-	float: left;
-	margin-left: 1.5em;
+	margin-right: 0.5em;
 	color:gray;
 	cursor: pointer;
 	-webkit-app-region: no-drag;
@@ -162,13 +164,13 @@ body{
 	color: rgb(255, 45, 45);
 }
 .titleButton{
-	float: right;
 	cursor: pointer;
-	margin-right: 1em;
 	color: gray;
 	font-weight: bold;
   	-webkit-app-region: no-drag;
   	-webkit-transition: color 1s;
+  	text-align: right;
+  	padding-left: 0.3em;
 }
 
 
