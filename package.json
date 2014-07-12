@@ -1,7 +1,6 @@
 {
 	"name":"youtubber",
 	"window":{
-		// "position": "mouse",
 		"title": "youtubber",
 		"icon": "u2bearFlat.png",
 		"width":1450,
