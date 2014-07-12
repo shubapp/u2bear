@@ -357,9 +357,11 @@ function initGui(){
         win.show();
         win.focus();
     }}));
-	menu.append(new gui.MenuItem({ type: 'checkbox', label: 'Always on top',click:function(){
+
+    var aot =new gui.MenuItem({ type: 'checkbox', label: 'Always on top',click:function(){
 		win.setAlwaysOnTop(this.checked);
-	}}));
+	}});
+	menu.append(aot);
 	menu.append(new gui.MenuItem({ type: 'separator'}));
 	menu.append(new gui.MenuItem({ type: 'normal', label: 'Close',click: function(){
 		win.close();
@@ -478,6 +480,10 @@ function initGui(){
     		if (!$("#search").is(":focus")){
 				win.toggleFullscreen();
     		}
+    	// a for always on top
+		} else if(event.keyCode==65){
+			aot.checked=!aot.checked;
+			win.setAlwaysOnTop(aot.checked);
 		}
     });
 
