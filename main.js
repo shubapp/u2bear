@@ -454,8 +454,6 @@ function initGui(){
 	    }
 	    $("#search").focus();
 	});
-	
-
 
     videojs("player").on("ended", nextVideo);
 
@@ -469,8 +467,8 @@ function initGui(){
     		}else{
     			win.close();
     		}
-    	//spacebar
     	}else if (!$("#search").is(":focus")){
+    		//spacebar
 	    	if(event.keyCode==32){
 	    		event.preventDefault();
 				tooglePlayer(playerOptions.PAUSE_PLAY);
@@ -519,7 +517,7 @@ function initGui(){
     	}
     });
 
-    for first time searching on load
+    // for first time searching on load
     var enterEvent =$.Event("keypress");
     enterEvent.charCode=13;
     $("#search").trigger(enterEvent)
