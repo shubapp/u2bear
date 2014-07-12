@@ -470,20 +470,18 @@ function initGui(){
     			win.close();
     		}
     	//spacebar
-    	}else if(event.keyCode==32){
-    		if (!$("#search").is(":focus")){
+    	}else if (!$("#search").is(":focus")){
+	    	if(event.keyCode==32){
 	    		event.preventDefault();
 				tooglePlayer(playerOptions.PAUSE_PLAY);
-    		}
-    	// f for fullscreen
-		} else if(event.keyCode==70){
-    		if (!$("#search").is(":focus")){
+	    	// f for fullscreen
+			} else if(event.keyCode==70){
 				win.toggleFullscreen();
-    		}
-    	// a for always on top
-		} else if(event.keyCode==65){
-			aot.checked=!aot.checked;
-			win.setAlwaysOnTop(aot.checked);
+	    	// a for always on top
+			} else if(event.keyCode==65){
+				aot.checked=!aot.checked;
+				win.setAlwaysOnTop(aot.checked);
+			}
 		}
     });
 
@@ -521,10 +519,10 @@ function initGui(){
     	}
     });
 
-    //for first time searching on load
-    //var enterEvent =$.Event("keypress");
-    //enterEvent.charCode=13;
-    //$("#search").trigger(enterEvent)
+    for first time searching on load
+    var enterEvent =$.Event("keypress");
+    enterEvent.charCode=13;
+    $("#search").trigger(enterEvent)
 
 	$("#search").focus();
 }
