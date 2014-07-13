@@ -14,7 +14,8 @@
 	"dependencies": {
 	    "ytdl": "0.2.8",
 	    "youtube-search": "0.1.4",
-	    "youtube-mp3": "0.1.2"
+	    "youtube-mp3": "0.1.2",
+	    "request": "2.37.0"
 	},
 	"main":"index.html"
 }
