@@ -4,6 +4,7 @@ var search = require('youtube-search');
 var mp3 = require('youtube-mp3');
 var gui = require('nw.gui');
 var http = require('http');
+var request = require("request");
 
 
 var APP_DIRECTORY = "";
@@ -287,7 +288,7 @@ function downloadMp3(){
 
 function downloadFile(url, dest, cb) {
   var file = fs.createWriteStream(dest);
-  var request = http.get(url, function(response) {
+  http.get(url, function(response) {
     response.pipe(file);
     file.on('finish', function() {
       file.close(cb);  // close() is async, call cb after close completes.
@@ -488,11 +489,46 @@ function initGui(){
 		if(event.charCode==13){
 			searchPhrase =$(this).val();
 			if(searchSwitch==searchOptions.youtube){
-				opts.startIndex=1;
-				search(searchPhrase, opts, function(err, results) {
-				  if(!err) 
-				  	showResaults(results);
-				});
+				if(searchPhrase.indexOf("https://www.youtube.com/watch?v=")==0 || searchPhrase.indexOf("http://www.youtube.com/watch?v=")==0){
+					var playlistId = getParam(searchPhrase,"list");
+					if (playlistId){
+						request({url: "http://gdata.youtube.com/feeds/api/playlists/"+playlistId +"?v=2&alt=json", json: true}, function(error, response, body) {
+							if (!error && response.statusCode === 200 && body.feed && body.feed.entry){
+								console.log(body.feed.entry);
+								var playlist=[];
+								for(var playlistIndex=0; playlistIndex< body.feed.entry.length; playlistIndex++){
+									var currVid = body.feed.entry[playlistIndex];
+									var currVidUrl = currVid.content.src.substring(0,currVid.content.src.indexOf('?')).replace('v/','watch?v=');
+									playlist.push({
+										url:currVidUrl,
+										title:validateVideoName(currVid.title["$t"]),
+										thumbnails:[{url:currVid["media$group"]["media$thumbnail"][3].url}]
+									});
+								}
+								showResaults(playlist)
+							}
+						});
+					}else{
+						ytdl.getInfo(searchPhrase, function(err, info){
+							if (err){
+								console.log(err);
+							}else{
+								console.log(info);
+								showResaults([{
+									url:searchPhrase,
+									title:validateVideoName(info.title),
+									thumbnails:[{url:info.thumbnail_url}]
+								}]);
+							}
+						});
+					}
+				} else{
+					opts.startIndex=1;
+					search(searchPhrase, opts, function(err, results) {
+					  if(!err) 
+					  	showResaults(results);
+					});
+				}
 			}else if(searchSwitch==searchOptions.local){
 				var regex=new RegExp(searchPhrase.replace(" ","|"),'i');
 				var filteredVids=[];
@@ -507,7 +543,11 @@ function initGui(){
 	});
 
     $("#resultContainer").scroll(function(){
-    	if((searchSwitch == searchOptions.youtube)&&(stoppedLoading)&&($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight() + 300)){
+    	if((searchSwitch == searchOptions.youtube)&&
+    		(stoppedLoading) &&
+    		($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight() + 300)&&
+    		(searchPhrase.indexOf("https://www.youtube.com/watch?v=")==-1) &&
+    		(searchPhrase.indexOf("http://www.youtube.com/watch?v=")==-1) ){
     		stoppedLoading = false;
     		opts.startIndex+=opts.maxResults;
     		search(searchPhrase, opts, function(err, results) {
@@ -525,6 +565,13 @@ function initGui(){
 	$("#search").focus();
 }
 
+function getParam(url,param){
+	var match = url.match(new RegExp('[?&]'+param+'=([^&]+)'));
+	if(match && match.length == 2){
+		return match[1];
+	}
+	return null;
+}
 
 function loadLocalData(){
 	fs.readdir(VIDEOS_DIRECTORY, function(err,files){
