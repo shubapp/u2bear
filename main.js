@@ -47,6 +47,9 @@ var localSongs=[];
 var playList=[];
 var currentlyDownloading={MAX_DOWNLOADS:3,currentSize:0};
 var currListIndex=0;
+var intervalue;
+var win = gui.Window.get();
+
 
 $(document).ready(function(){
 	initGui();
@@ -351,7 +354,6 @@ function downloadVideoParams(chosenVid, cb){
 }
 
 function initGui(){
-	var win = gui.Window.get();
     var tray = new gui.Tray({title: 'U2Bear', icon: 'u2bearFlat.png' });
     var menu = new gui.Menu();
 	menu.append(new gui.MenuItem({ type: 'normal', label: 'Open',click: function() {
@@ -387,7 +389,7 @@ function initGui(){
     });
 
     $("#titleMax").click(function(){
-    	win.toggleFullscreen();
+    	enterFullscreen();
 	});
 
 	$("#titleDebug").click(function(){
@@ -464,7 +466,7 @@ function initGui(){
     		if(playerOn){
     			tooglePlayer(playerOptions.STOP);
     		}else if(win.isFullscreen){
-    			win.toggleFullscreen();
+    			enterFullscreen();
     		}else{
     			win.close();
     		}
@@ -475,7 +477,7 @@ function initGui(){
 				tooglePlayer(playerOptions.PAUSE_PLAY);
 	    	// f for fullscreen
 			} else if(event.keyCode==70){
-				win.toggleFullscreen();
+				enterFullscreen();
 	    	// a for always on top
 			} else if(event.keyCode==65){
 				aot.checked=!aot.checked;
@@ -557,6 +559,7 @@ function initGui(){
     	}
     });
 
+
     // for first time searching on load
     var enterEvent =$.Event("keypress");
     enterEvent.charCode=13;
@@ -591,4 +594,28 @@ function loadLocalData(){
 			localSongs=files;
 		}
 	});
+}
+
+function enterFullscreen(){
+	if (win.isFullscreen){
+		clearInterval(intervalue);
+		$("#player").removeClass("fullscreen");
+		$("#player").unbind('mousemove');
+	}else{
+		intervalue = setInterval(fuller,3000);
+	}
+	win.toggleFullscreen();
+}
+
+function fuller(){
+	if (playerOn){
+		$("#player").addClass("fullscreen");
+    	$("#player").mousemove(mouseMovement);
+	}
+}
+
+function mouseMovement(){
+	clearInterval(intervalue);
+	$("#player").removeClass("fullscreen");
+	intervalue = setInterval(fuller,3000);
 }

@@ -187,6 +187,11 @@ body{
 	right: 0;
 	bottom: 4.3em;
 	margin: 0 auto;
+	-webkit-transition:all 1s;
+}
+.fullscreen{
+	bottom:0!important;
+	cursor: none;
 }
 #player.active{
 	display: block;
