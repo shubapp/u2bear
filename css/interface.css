@@ -223,3 +223,11 @@ body{
 #playerRepeat.active{
 	color:rgb(255, 45, 45);
 }
+
+#loading{
+	font-size: 5em;
+	color: white;
+	top: 20%;
+	position: absolute;
+	left: 47%;
+}

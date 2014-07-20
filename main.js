@@ -118,9 +118,10 @@ function addYoutubeResults(results){
 		}
 	});
 
-	// $(".result .fa-film").click(downloadVideo);
 	$(".result .fa-headphones").click(downloadMp3);
 	$(".result .fa-film").click(enqueYoutubeVideo);
+
+    $("#loading").addClass("hidden");
 
 	stoppedLoading = true;
 }
@@ -148,6 +149,7 @@ function addLocalResaults(results){
 	$(".result .fa-plus-square-o").click(enqueLocalVideo);
 	$(".result .fa-trash-o").click(deleteLocalVideo);
 
+    $("#loading").addClass("hidden");
 	stoppedLoading = true;
 }
 
@@ -489,6 +491,7 @@ function initGui(){
 
     $("#search").bind('keypress',function(event){
 		if(event.charCode==13){
+			$("#loading").removeClass("hidden");
 			searchPhrase =$(this).val();
 			if(searchSwitch==searchOptions.youtube){
 				if(searchPhrase.indexOf("https://www.youtube.com/watch?v=")==0 || searchPhrase.indexOf("http://www.youtube.com/watch?v=")==0){
@@ -550,6 +553,7 @@ function initGui(){
     		($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight() + 300)&&
     		(searchPhrase.indexOf("https://www.youtube.com/watch?v=")==-1) &&
     		(searchPhrase.indexOf("http://www.youtube.com/watch?v=")==-1) ){
+    		$("#loading").removeClass("hidden");
     		stoppedLoading = false;
     		opts.startIndex+=opts.maxResults;
     		search(searchPhrase, opts, function(err, results) {
@@ -558,7 +562,6 @@ function initGui(){
 			});
     	}
     });
-
 
     // for first time searching on load
     var enterEvent =$.Event("keypress");
