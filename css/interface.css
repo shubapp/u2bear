@@ -231,3 +231,28 @@ body{
 	position: absolute;
 	left: 47%;
 }
+
+#cheetsheet{
+	position: absolute;
+	top: 20%;
+	left: 20%;
+	width: 50%;
+	height: 24em;
+	background-color: rgb(58, 58, 58);
+	color: white;
+	border: 1px solid white;
+	border-radius: 5px;
+	padding: 0 3em;
+}
+#hotKeys{
+	text-align: left;
+}
+#cheetsheet .close{
+	background-color: rgb(255, 45, 45);
+	color: rgb(255, 255, 255);
+	border: 1px solid white;
+	font-size: 2em;
+	border-radius: 0px;
+	cursor: pointer;
+	outline:0;
+}

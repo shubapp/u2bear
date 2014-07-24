@@ -18,7 +18,7 @@
 		
 		<input dir="auto" type="search" id="search" placeholder="Search" />
 		
-		<span class="titleButton" id="titleDebug"><i class="fa fa-bug"></i></span>
+		<span class="titleButton" id="titleQuestion"><i class="fa fa-question-circle"></i></span>
 		<span id="titleMin" class="titleButton"><i class="fa fa-minus-square"></i></span>
 		<span class="titleButton" id="titleMax"><i class="fa fa-external-link"></i></span>
 		<span class="titleButton" id="titleClose"><i class="fa fa-times-circle"></i></span>
@@ -34,6 +34,16 @@
 		
 	</div>
 	<div id="loading" class="fa fa-spinner fa-spin hidden"></div>
+	<div id="cheetsheet" class="hidden">
+		<div>
+			<h1>This application is used to download and play videos.</h1>
+			<h2>These are a faw hot keys defined to give you super power:</h2>
+		</div>
+		<div>
+			<table id="hotKeys"></table>
+		</div>
+		<button class="close">Thanks</button>
+	</div>
 </center>
 <div class="playerBar">
 	<i id="playerBackward" class='fa fa-step-backward'></i>
@@ -49,6 +59,7 @@
 </div>
 <script type="text/javascript" src="lib/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="lib/video.js"></script>
+<script type="text/javascript" src="js/cheetsheet.js"></script>
 <script type="text/javascript" src="main.js"></script>
 </body>
 </html>

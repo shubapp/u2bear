@@ -407,9 +407,7 @@ function initGui(){
     	enterFullscreen();
 	});
 
-	$("#titleDebug").click(function(){
-    	win.showDevTools();
-	});
+	$("#titleQuestion").click(showCheetSheet);
 
 	$("#playerStop").click(function(){
 		tooglePlayer(playerOptions.STOP);
@@ -497,6 +495,10 @@ function initGui(){
 			} else if(event.keyCode==65){
 				aot.checked=!aot.checked;
 				win.setAlwaysOnTop(aot.checked);
+			} else if(event.keyCode==192){
+				win.showDevTools();
+			} else if(event.keyCode==191){
+				showCheetSheet();
 			}
 		}
     });
