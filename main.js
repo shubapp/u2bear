@@ -407,7 +407,7 @@ function initGui(){
     	enterFullscreen();
 	});
 
-	$("#titleQuestion").click(showCheetSheet);
+	$("#titleQuestion").click(toogleCheetSheet);
 
 	$("#playerStop").click(function(){
 		tooglePlayer(playerOptions.STOP);
@@ -498,7 +498,7 @@ function initGui(){
 			} else if(event.keyCode==192){
 				win.showDevTools();
 			} else if(event.keyCode==191){
-				showCheetSheet();
+				toogleCheetSheet();
 			}
 		}
     });

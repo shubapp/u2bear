@@ -12,10 +12,14 @@ for (var key = 0; key < cheetSheet.length; key++) {
 
 
 $("#cheetsheet .close").click(function(){
-	$("#cheetsheet").addClass("hidden");
+	toogleCheetSheet();
 });
 
-function showCheetSheet(){
-	$("#cheetsheet").removeClass("hidden");
-	$("#cheetsheet .close").focus();
+function toogleCheetSheet(){
+	if ($("#cheetsheet").hasClass("hidden")) {
+		$("#cheetsheet").removeClass("hidden");
+		$("#cheetsheet .close").focus();
+	} else{
+		$("#cheetsheet").addClass("hidden");
+	}
 }
