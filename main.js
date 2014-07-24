@@ -5,7 +5,7 @@ var mp3 = require('youtube-mp3');
 var gui = require('nw.gui');
 var http = require('http');
 var request = require("request");
-
+var updater = require("./updater/updater");
 
 var APP_DIRECTORY = "";
 if (process.execPath.indexOf("u2bear.exe")!=-1){
@@ -49,12 +49,25 @@ var currentlyDownloading={MAX_DOWNLOADS:3,currentSize:0};
 var currListIndex=0;
 var intervalue;
 var win = gui.Window.get();
-
+updater(win);
 
 $(document).ready(function(){
+	folderSetup();
 	initGui();
 	loadLocalData();
 });
+
+function folderSetup(){
+	if(!fs.existsSync(VIDEOS_DIRECTORY)) {
+		fs.mkdirSync(VIDEOS_DIRECTORY);
+	}
+	if(!fs.existsSync(SONGS_DIRECTORY)) {
+		fs.mkdirSync(SONGS_DIRECTORY);
+	}
+	if(!fs.existsSync(IMAGES_DIRECTORY)) {
+		fs.mkdirSync(IMAGES_DIRECTORY);
+	}
+}
 
 function showResaults(results){
 	$("#resultContainer").html("");
@@ -499,7 +512,6 @@ function initGui(){
 					if (playlistId){
 						request({url: "http://gdata.youtube.com/feeds/api/playlists/"+playlistId +"?v=2&alt=json", json: true}, function(error, response, body) {
 							if (!error && response.statusCode === 200 && body.feed && body.feed.entry){
-								console.log(body.feed.entry);
 								var playlist=[];
 								for(var playlistIndex=0; playlistIndex< body.feed.entry.length; playlistIndex++){
 									var currVid = body.feed.entry[playlistIndex];
@@ -518,7 +530,6 @@ function initGui(){
 							if (err){
 								console.log(err);
 							}else{
-								console.log(info);
 								showResaults([{
 									url:searchPhrase,
 									title:validateVideoName(info.title),
