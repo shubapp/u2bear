@@ -1,6 +1,6 @@
 {
 	"name":"u2bear",
-	"version":"0.0.7",
+	"version":"0.0.8",
 	"author":"Dean Shub <dean@shubapp.com>",
 	"manifestUrl":"https://github.com/shubapp/u2bear/raw/master/package.json",
 	"packages":{
