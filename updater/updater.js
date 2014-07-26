@@ -13,6 +13,7 @@ function update(win){
 }
 
 function newVersionAvailable(err, manifest){
+	console.log("New version available!");
 	errorHandler(err);
 	upd.download(newVersionDownloaded);
 }
