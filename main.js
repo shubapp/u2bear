@@ -681,9 +681,11 @@ function moveSelection(arrow){
 		}else if(arrow==arrows.LEFT){
 			newIndex = (1 * currHover.attr('index')) - 1;
 		}else if(arrow==arrows.DOWN){
-			newIndex = (1 * currHover.attr('index')) + 3;
+			var resultsInLine = Math.floor($("#resultContainer").width() /	$(".result").outerWidth(true));
+			newIndex = (1 * currHover.attr('index')) + resultsInLine;
 		}else if(arrow==arrows.UP){
-			newIndex = (1 * currHover.attr('index')) - 3;
+			var resultsInLine = Math.floor($("#resultContainer").width() /	$(".result").outerWidth(true));
+			newIndex = (1 * currHover.attr('index')) - resultsInLine;
 		}
 		var nextHover = $(".result[index="+newIndex+"]");
 		if (nextHover.length!=0){
