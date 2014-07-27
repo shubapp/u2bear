@@ -4,6 +4,8 @@ var cheetSheet=[
 	{key:"Esc", desc:"Stop the current playing video and exit the player (also exit full screen)"},
 	{key:"Spacebar", desc:"Pause and resume video"},
 	{key:"f", desc:"Toogles in and out of full screen"},
+	{key:"d", desc:"Set the focus to the search input"},
+	{key:"s", desc:"Stop the current video"},
 	{key:"?", desc:"Open this cheet sheet"},
 	{key:"~", desc:"Open debugger"},
 	];

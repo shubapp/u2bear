@@ -40,6 +40,14 @@ var playerOptions={
 	STOP:2,
 	PLAY:3
 };
+var arrows={
+	DOWN:40,
+	UP:38,
+	LEFT:37,
+	RIGHT:39
+};
+
+var currHover = null;
 var searchSwitch = searchOptions.youtube;
 var localVids=[];
 var localSongs=[];
@@ -78,6 +86,8 @@ function showResaults(results){
 	}else if(searchSwitch == searchOptions.local){
 		addLocalResaults(results);
 	}
+	currHover=$(".result[index=1]");
+	moveSelection(arrows.LEFT);
 }
 
 function nextPage(results){
@@ -103,7 +113,8 @@ function addYoutubeResults(results){
 	for (;maxIndex< displayedVids.length ; maxIndex++) {
 		results[maxIndex - (displayedVids.length-results.length)].title = validateVideoName(results[maxIndex - (displayedVids.length-results.length)].title);
 		var addedElem = $("<span index='"+ maxIndex +"' class='result'><div class='overlay'><i class='fa fa-info-circle'></i>"+
-			"<i class='fa fa-headphones'></i><i class='fa fa-film'></i><div class='progressbarContainer' data-width='0%'><div class='progressbarValue'></div></div></div><img src=\"" +
+			"<i class='fa fa-headphones'></i><i class='fa fa-film' tabindex='" +maxIndex*10 +1 + 
+			"'></i><div class='progressbarContainer' data-width='0%'><div class='progressbarValue'></div></div></div><img src=\"" +
 			results[maxIndex - (displayedVids.length-results.length)].thumbnails[0].url +"\" /><div dir='auto' class='vidTitle'>" + 
 			results[maxIndex - (displayedVids.length-results.length)].title +"</div></span>");
 		
@@ -145,7 +156,8 @@ function extractName(vidName){
 
 function addLocalResaults(results){
 	for (;maxIndex< displayedVids.length ; maxIndex++) {
-		var addedElem = $("<span index='"+ maxIndex +"' class='result'><div class='overlay'><i class='fa fa-trash-o'></i><i class='fa fa-play'></i><i class='fa fa-plus-square-o'></i></div><img src=\"" + 
+		var addedElem = $("<span index='"+ maxIndex +"' class='result'><div class='overlay'><i class='fa fa-trash-o'></i><i class='fa fa-play' tabindex='" + maxIndex*10+2 +
+			"'></i><i class='fa fa-plus-square-o' tabindex='"+  maxIndex*10+3 +"'></i></div><img src=\"" + 
 			IMAGES_DIRECTORY + results[maxIndex - (displayedVids.length-results.length)] +".jpg\" /><div dir='auto' class='vidTitle'>" + 
 			extractName(results[maxIndex - (displayedVids.length-results.length)]) +"</div></span>");
 		
@@ -487,9 +499,30 @@ function initGui(){
     		}else{
     			win.close();
     		}
+    	//down
+    	}else if(!playerOn && event.keyCode==arrows.DOWN){
+    		moveSelection(arrows.DOWN);
+    	//up
+    	}else if(!playerOn && event.keyCode==arrows.UP){
+    		moveSelection(arrows.UP);
+    	//right
+    	}else if(!playerOn && event.keyCode==arrows.RIGHT){
+    		moveSelection(arrows.RIGHT);
+    	//left
+    	}else if(!playerOn && event.keyCode==arrows.LEFT){
+    		moveSelection(arrows.LEFT);
     	}else if (!$("#search").is(":focus")){
-    		//spacebar
-	    	if(event.keyCode==32){
+    		if(event.keyCode==13){
+		    	currHover.find(".overlay .fa-film,.fa-play").click();
+		    // s for stop
+		    }else if(event.keyCode==83){
+				tooglePlayer(playerOptions.STOP);
+			// d for search bar
+		    }else if(event.keyCode==68){
+	    		event.preventDefault();
+				$("#search").focus();
+			//spacebar
+	    	}else if(event.keyCode==32){
 	    		event.preventDefault();
 				tooglePlayer(playerOptions.PAUSE_PLAY);
 	    	// f for fullscreen
@@ -638,4 +671,32 @@ function mouseMovement(){
 	clearInterval(intervalue);
 	$("#player").removeClass("fullscreen");
 	intervalue = setInterval(fuller,3000);
+}
+
+function moveSelection(arrow){
+	if (currHover){
+		var newIndex;
+		if(arrow==arrows.RIGHT){
+			newIndex = (1 * currHover.attr('index')) + 1;
+		}else if(arrow==arrows.LEFT){
+			newIndex = (1 * currHover.attr('index')) - 1;
+		}else if(arrow==arrows.DOWN){
+			newIndex = (1 * currHover.attr('index')) + 3;
+		}else if(arrow==arrows.UP){
+			newIndex = (1 * currHover.attr('index')) - 3;
+		}
+		var nextHover = $(".result[index="+newIndex+"]");
+		if (nextHover.length!=0){
+			if(currHover.find(".downloading").length==0){
+				currHover.find(".overlay").removeClass("active");
+			}
+			currHover = nextHover;
+			currHover.find(".overlay").addClass("active");
+			$('#resultContainer').animate({
+		        scrollTop: currHover.offset().top - currHover.parent().offset().top + currHover.parent().scrollTop()
+		    }, 500);
+		    // $("#resultContainer").focus();
+		    currHover.find(".overlay .fa-film,.fa-play").focus();
+		}
+	}
 }
