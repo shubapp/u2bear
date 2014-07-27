@@ -512,7 +512,7 @@ function initGui(){
     	}else if(!playerOn && event.keyCode==arrows.LEFT){
     		moveSelection(arrows.LEFT);
     	}else if (!$("#search").is(":focus")){
-    		if(event.keyCode==13){
+    		if((event.keyCode==13) && ($("#cheetsheet").hasClass("hidden"))){
 		    	currHover.find(".overlay .fa-film,.fa-play").click();
 		    // s for stop
 		    }else if(event.keyCode==83){
