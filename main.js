@@ -343,6 +343,8 @@ function downloadVideoParams(chosenVid, cb){
 			this.size = 1 * format.size;
 		});
 		downloadVid.on('data', function(chunk) {
+			resultElem.find(".fa-film").removeClass("downloading");
+			resultElem.find(".fa-film").removeClass("failure");
 	  		resultElem.find(".progressbarValue").css("width",Math.round(this._readableState.pipes.bytesWritten / this.size * 100) + "%");
 	  		resultElem.find(".progressbarContainer").attr("data-width",Math.round(this._readableState.pipes.bytesWritten / this.size * 100) + "%");
 		});
@@ -361,6 +363,8 @@ function downloadVideoParams(chosenVid, cb){
 			delete(currentlyDownloading[chosenVid.title]);
 			currentlyDownloading.currentSize--;
 			fs.unlink(VIDEOS_DIRECTORY+chosenVid.title+'.mp4');
+			fs.unlink(IMAGES_DIRECTORY+chosenVid.title+'.mp4.jpg');
+
 			resultElem.find(".fa-film").removeClass("downloading");
 			resultElem.removeClass("active");
 			resultElem.find(".fa-film").addClass("failure");

@@ -1,6 +1,5 @@
 body{
 	font-family: 'Open Sans','Alef';
-	/*background: -webkit-linear-gradient(-45deg,rgb(184, 179, 179),white);*/
 	background-color:rgb(31, 30, 30);
 	margin-top: 3.7em;
 	overflow: hidden;
@@ -9,12 +8,12 @@ body{
 	outline:0;
 	padding-left:1em;
 	padding-top: 4px;
-	width: 75%;
+	width: 100%;
 	border-radius: 7px;
 	background-color: rgb(255, 255, 255);
 	color: black;
 	font-size: 1em;
-	margin-top: -7px;
+	margin:	-7px 0.5em 0 0.5em;
 	-webkit-app-region: no-drag;
 }
 #resultContainer{
@@ -30,6 +29,7 @@ body{
 	background-repeat: no-repeat;
 	background-position: 50%;
 	background-size:50%;
+  	-webkit-app-region: drag;
 }
 .result {
 	position: relative;
@@ -39,6 +39,7 @@ body{
 	background-color: rgb(58, 58, 58);
 	padding:1em 0;
 	height: 20em;
+	-webkit-app-region: no-drag;
 }
 .result img{
 	width: 98%;
@@ -134,34 +135,36 @@ body{
 }
 .titleBar{
 	background-color:rgb(224, 224, 224);
-	margin: -8px;
 	height: 1.5em;
 	color: white;
 	font-size: 1.5em;
 	padding-top: 0.7em;
 	padding-bottom: 0.3em;
 	position: fixed;
-	display: flex;
-	top: 8px;
-	width: 95%;
+	top: 0;
+	left: 0;
+	width: 100%;
 	border-bottom: 1px black solid;
 	z-index: 10;
 	-webkit-user-select: none;
   	-webkit-app-region: drag;
-  	padding-left: 1.5em;
-  	padding-right: 1.5em;
-}
-.titleBar>span{
-	flex:1;
+  	display: table;
 }
 .switches{
-	margin-right: 0.5em;
+	margin: 0 0.5em;
 	color:gray;
 	cursor: pointer;
 	-webkit-app-region: no-drag;
+	text-align: center;
+	width: 2.5em;
+	display: table-cell;	
 }
 .switches.active{
 	color: rgb(255, 45, 45);
+}
+.spacer{
+	display: table-cell;
+	width: 0.5em;
 }
 .titleButton{
 	cursor: pointer;
@@ -169,8 +172,10 @@ body{
 	font-weight: bold;
   	-webkit-app-region: no-drag;
   	-webkit-transition: color 1s;
-  	text-align: right;
-  	padding-left: 0.3em;
+  	margin: 0 0.5em;
+	text-align: center;
+	width: 2em;
+  	display: table-cell
 }
 
 
