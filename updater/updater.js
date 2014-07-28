@@ -34,7 +34,8 @@ function newVersionUnpacked(err, newAppPath){
 		SRC_DIRECTORY = __dirname;
 	}
 
-	var updateProcess = spawn(path.resolve(newAppPath,"tools/restartApp.bat"), [SRC_DIRECTORY,newAppPath,"u2bear.exe"],{detached:true,stdio: [ 'ignore', 'ignore', 'ignore' ]});
+	var updateProcess = spawn(path.resolve(path.dirname(newAppPath),"tools/restartApp.bat"), [SRC_DIRECTORY,path.dirname(newAppPath),"u2bear.exe"],
+		{detached:true,stdio: [ 'ignore', 'ignore', 'ignore' ]});
 	updateProcess.unref();
 	webkitWindow.close();
 }
