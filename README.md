@@ -21,7 +21,10 @@ Think about it, youll get it...
 
 ## How to start it?
 ### Download it
-1. [here](http://chat.shubapp.com/u2bear.zip)
+1. [here](https://github.com/shubapp/u2bear/releases/download/0.1.0/u2bear.zip)
+
+### Or here
+1. [latest build](http://chat.shubapp.com/u2bear.zip)
 
 ### Or
 1. `git clone https://github.com/shubapp/u2bear.git`
