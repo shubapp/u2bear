@@ -39,12 +39,29 @@ body{
 	padding:1em 0;
 	height: 20em;
 	-webkit-app-region: no-drag;
+	-webkit-transition:0.5s linear all;
+}
+.result.ng-enter-stagger,.result.ng-leave-stagger{
+	transition-delay: 0.3s;
+}
+.result.ng-enter,.result.ng-leave.ng-leave-active{
+	opacity: 0;
+}
+.result.ng-leave,.result.ng-enter.ng-enter-active{
+	opacity: 1;
 }
 .result img{
+	max-width: 392px;
+	max-height: 294px;
 	width: 98%;
 }
-.result .overlay.active{
+.result:hover .overlay,.result .overlay.active{
 	background-color: rgba(12, 12, 12, 0.26);
+	top:0;
+	visibility: visible;
+}
+.result .overlay.selected{
+	background-color: rgba(255, 255, 255, 0.33);
 	top:0;
 	visibility: visible;
 }
@@ -193,15 +210,15 @@ body{
 	margin: 0 auto;
 	-webkit-transition:all 1s;
 }
-.fullscreen{
+.fullscreen #player{
 	bottom:0!important;
 	cursor: none;
 }
-#player.active{
+.active>#player{
 	display: block;
 	z-index: 100;
 }
-#player.background{
+.background>#player{
 	display: none;
 }
 .vidTitle{
@@ -211,7 +228,17 @@ body{
 	font-size: 1.5em;
 	color:white;
 }
-#titleBackground.active{
+.vidTime{
+	height: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 1.5em;
+	color:white;
+	position: absolute;
+	left: 40%;
+}
+
+.playerBar>i.active{
 	color: rgb(255, 45, 45);
 }
 
@@ -224,10 +251,6 @@ body{
 	font-size: 0.6em;
 }
 
-#playerRepeat.active{
-	color:rgb(255, 45, 45);
-}
-
 #loading{
 	font-size: 5em;
 	color: white;
@@ -238,10 +261,10 @@ body{
 
 #cheetsheet{
 	position: absolute;
-	top: 20%;
+	top: 15%;
 	left: 20%;
 	width: 50%;
-	height: 32em;
+	height: 35em;
 	background-color: rgb(58, 58, 58);
 	color: white;
 	border: 1px solid white;
@@ -260,3 +283,13 @@ body{
 	cursor: pointer;
 	outline:0;
 }
+
+.switchResultContainer{
+	-webkit-transition:1s linear all;
+}
+.switchResultContainer.ng-enter,.switchResultContainer.ng-leave.ng-leave-active{
+	top: +100% !important;
+}
+/*.switchResultContainer.ng-leave,.switchResultContainer.ng-enter.ng-enter-active{
+	top: -100% !important;
+}*/

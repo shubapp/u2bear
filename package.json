@@ -1,28 +1,28 @@
 {
-	"name":"u2bear",
-	"version":"0.1.0",
-	"author":"Dean Shub <dean@shubapp.com>",
-	"manifestUrl":"https://github.com/shubapp/u2bear/raw/master/package.json",
-	"packages":{
-		"win":"http://chat.shubapp.com/u2bear.zip"
-	},
-	"window":{
-		"title": "u2bear",
-		"icon": "u2bearFlat.png",
-		"width":1450,
-		"height":800
-		,"toolbar":false
-		,"frame":false
-	},
-	"webkit": {
-	    "plugin": true
-	},
-	"dependencies": {
-	    "ytdl": "0.2.8",
-	    "youtube-search": "0.1.4",
-	    "youtube-mp3": "0.1.2",
-	    "request": "2.37.0",
-	    "node-webkit-updater":"0.0.2"
-	},
-	"main":"index.html"
+  "name": "u2bear",
+  "version": "0.1.0",
+  "author": "Dean Shub <dean@shubapp.com>",
+  "manifestUrl": "https://github.com/shubapp/u2bear/raw/master/package.json",
+  "packages": {
+    "win": "http://chat.shubapp.com/u2bear.zip"
+  },
+  "window": {
+    "title": "u2bear",
+    "icon": "u2bearFlat.png",
+    "width": 1450,
+    "height": 800,
+    "toolbar": false,
+    "frame": false
+  },
+  "webkit": {
+    "plugin": true
+  },
+  "dependencies": {
+    "youtube-search": "0.1.4",
+    "youtube-mp3": "0.1.2",
+    "request": "2.37.0",
+    "node-webkit-updater": "0.0.2",
+    "ytdl-core": "^0.2.4"
+  },
+  "main": "index.html"
 }
