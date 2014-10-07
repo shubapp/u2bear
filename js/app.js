@@ -2,21 +2,16 @@
 var u2bear = angular.module('u2bear',['u2bear.controllers','u2bear.directives','ngRoute','u2bear.services','ngAnimate','u2bear.filters']);
 
 // Routes section
-u2bear.config(function ($routeProvider, $locationProvider) {
+u2bear.config(function ($routeProvider) {
 	$routeProvider
 	.when('/',{
 		// controller:'introCtrl',
-		templateUrl: 'views/videos.html',
+		templateUrl: './views/videos.html',
 		resolve:{
 			setup:folderSetup
 		}
 	})
 	.otherwise({redirectTo:'/'});
-
-	$locationProvider.html5Mode({
-		enabled: true,
-		requireBase: false
-	});
 });
 
 var folderSetup = function(Reqs, Consts){
