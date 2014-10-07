@@ -3,7 +3,7 @@
 
 	<div id="resultContainer" ng-if="searchSwitch==1" scroll="loadMore()" auto-focus="currHover" class="switchResultContainer">
 		<span ng-repeat="video in displayedVids" class="result" enter="enqueYoutubeVideo(video)">
-			<div class="vidTime">{{video.duration/60|number:0}}:{{video.duration%60|secondes}}</div>
+			<div class="vidTime">{{video.duration|time}}</div>
 			<div class="overlay" ng-class="video.overlay">
 				<i class='fa fa-info-circle' ng-click="youtubeInfo(video)"></i>
 				<i class='fa fa-headphones' ng-class="video.audClass" ng-click="downloadMp3(video)"></i>
@@ -12,7 +12,7 @@
 					<div class='progressbarValue'ng-style="{width:currentlyDownloading[video.title]}"></div>
 				</div>
 			</div>
-			<img src="{{video.thumbnails[0].url}}" />
+			<img ng-src="{{video.thumbnails[0].url}}" />
 			<div dir='auto' class='vidTitle'>{{video.title}}</div>
 		</span>
 	</div>
@@ -24,7 +24,7 @@
 				<i class='fa fa-play' tabindex="{{$index*10+2}}" ng-click="playLocalVideo(video)"></i>
 				<i class='fa fa-plus-square-o' tabindex="{{$index*10+3}}" ng-click="enqueLocalVideo(video)"></i>
 			</div>
-			<img src="{{IMAGES_DIRECTORY}}{{video.title}}.jpg"/>
+			<img ng-src="{{IMAGES_DIRECTORY}}{{video.title}}.jpg"/>
 			<div dir='auto' class='vidTitle'>{{video.title}}</div></span>		
 	</div>
 

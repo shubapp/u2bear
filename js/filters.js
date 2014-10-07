@@ -1,12 +1,17 @@
 'use strict';
 var u2bear = angular.module('u2bear.filters',[]);
 var filters = {};
-filters.secondes = function(){
+filters.time = function(){
 	return function(input) {
-		if (input < 10) { 
-			input = '0' + input;
+		if (isNaN(input)){
+			return "";
 		}
-		return input;
+		var minutes = Math.floor(input/60);
+		var secondes = input % 60;
+		if (secondes < 10)
+			secondes = '0' + secondes;
+		
+		return minutes + ":" + secondes;
 	};
 };
 

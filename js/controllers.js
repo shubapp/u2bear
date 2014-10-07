@@ -32,7 +32,7 @@ controllers.introCtrl = function ($scope, $location, $timeout, Reqs, Consts, Gen
 		{key:"s", desc:"Stop the current video"},
 		{key:"a", desc:"Toogle always on top"},
 		{key:"?", desc:"Open this cheet sheet"},
-		{key:"left CTRL", desc:"Switch between the search categories"},
+		{key:"\\", desc:"Switch between the search categories"},
 		{key:"~", desc:"Open debugger"},
 	];
 	$scope.version = Reqs.Pkg.version;
@@ -139,7 +139,6 @@ controllers.introCtrl = function ($scope, $location, $timeout, Reqs, Consts, Gen
 	$scope.toogleCheetSheet = function(){
 		$scope.hideCheetsheet = !$scope.hideCheetsheet;
 		$timeout(function(){
-			console.log($("#cheetsheet .close"));
 			$("#cheetsheet .close").focus();
 		},15)
 	};
@@ -261,8 +260,9 @@ controllers.introCtrl = function ($scope, $location, $timeout, Reqs, Consts, Gen
     	}else if(!$scope.playerOn && event.keyCode==Consts.arrows.LEFT){
     		event.preventDefault();
     		$scope.moveSelection(Consts.arrows.LEFT);
-    	// left CTRL
-    	}else if(event.keyCode==17){
+    	// \
+    	}else if(event.keyCode==220){
+    		event.preventDefault();
 			if ($scope.searchSwitch == Consts.searchOptions.youtube){
 				$scope.switch(Consts.searchOptions.local);
 			}else if ($scope.searchSwitch == Consts.searchOptions.local){
