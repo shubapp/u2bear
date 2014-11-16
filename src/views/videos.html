@@ -1,0 +1,33 @@
+<center>
+	<player-container ng-class="{active: playerActive, background: backgroundPlayer, fullscreen: superFullscreen}"></player-container>
+
+	<div id="resultContainer" ng-if="searchSwitch==1" scroll="loadMore()" auto-focus="currHover" class="switchResultContainer">
+		<span ng-repeat="video in displayedVids" class="result" enter="enqueYoutubeVideo(video)">
+			<div class="vidTime">{{video.duration|time}}</div>
+			<div class="overlay" ng-class="video.overlay">
+				<i class='fa fa-info-circle' ng-click="youtubeInfo(video)"></i>
+				<i class='fa fa-headphones' ng-class="video.audClass" ng-click="downloadMp3(video)"></i>
+				<i class='fa fa-film' tabindex="{{$index}}" ng-class="video.vidClass" ng-click="enqueYoutubeVideo(video)"></i>
+				<div class='progressbarContainer' data-width='{{currentlyDownloading[video.title]}}'>
+					<div class='progressbarValue'ng-style="{width:currentlyDownloading[video.title]}"></div>
+				</div>
+			</div>
+			<img ng-src="{{video.thumbnails[0].url}}" />
+			<div dir='auto' class='vidTitle'>{{video.title}}</div>
+		</span>
+	</div>
+
+	<div id="resultContainer" ng-if="searchSwitch==2" auto-focus="currHover" class="switchResultContainer">
+		<span ng-repeat="video in displayedVids|filter:searchPhrase" class='result' enter="playLocalVideo(video)">
+			<div class='overlay' ng-class="video.overlay">
+				<i class='fa fa-trash-o' ng-click="deleteLocalVideo(video)"></i>
+				<i class='fa fa-play' tabindex="{{$index*10+2}}" ng-click="playLocalVideo(video)"></i>
+				<i class='fa fa-plus-square-o' tabindex="{{$index*10+3}}" ng-click="enqueLocalVideo(video)"></i>
+			</div>
+			<img ng-src="{{IMAGES_DIRECTORY}}{{video.title}}.jpg"/>
+			<div dir='auto' class='vidTitle'>{{video.title}}</div></span>		
+	</div>
+
+	<div id="loading" class="fa fa-spinner fa-spin" ng-class="{hidden:stoppedLoading}"></div>
+	<cheetsheet></cheetsheet>
+</center>
