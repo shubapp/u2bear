@@ -172,13 +172,6 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
 	};
 
 	$scope.enterFullscreen = function(){
-		if ($scope.win.isFullscreen){
-			clearInterval($scope.intervalue);
-			$scope.superFullscreen = false;
-			$("#player").unbind('mousemove');
-		}else{
-			$scope.intervalue = setInterval($scope.fuller,3000);
-		}
 		$scope.win.toggleFullscreen();
 	}
 
@@ -193,9 +186,19 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
 	$scope.mouseMovement = function(){
 		clearInterval($scope.intervalue);
 		$scope.superFullscreen = false;
-	    $scope.$apply();
+		$scope.$apply();
 		$scope.intervalue = setInterval($scope.fuller,3000);
 	}
+
+	$scope.$watch('playerOn',function(newValue){
+		if (newValue){
+			$scope.mouseMovement();
+		} else{
+			clearInterval($scope.intervalue);
+			$scope.superFullscreen = false;
+			$("#player").unbind('mousemove');
+		}
+	});
 
 	$scope.toogleCheetSheet = function(){
 		$scope.hideCheetsheet = !$scope.hideCheetsheet;
@@ -469,9 +472,9 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
 			var chosenVid = $scope.playList[$scope.currListIndex];
 
 			for(var nextSongs= $scope.currListIndex; nextSongs < $scope.playList.length; nextSongs++){
-				chosenVid = $scope.playList[nextSongs];
-				if (!Reqs.Fs.existsSync(Consts.VIDEOS_DIRECTORY+chosenVid.title+'.mp4')){
-						$scope.downloadVideoParams(chosenVid, $scope.playVideos);
+				var checkedVid = $scope.playList[nextSongs];
+				if (!Reqs.Fs.existsSync(Consts.VIDEOS_DIRECTORY+checkedVid.title+'.mp4')){
+						$scope.downloadVideoParams(checkedVid, $scope.playVideos);
 				}
 			}
 
