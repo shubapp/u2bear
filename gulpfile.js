@@ -4,7 +4,7 @@ var uglify = require('gulp-uglify');
 var plumber = require('gulp-plumber');
 var cssshrink = require('gulp-cssshrink');
 var htmlmin = require("gulp-htmlmin");
-// var cp = require('child_process');
+var cp = require('child_process');
 
 gulp.task('scripts', function () {
 	gulp.src('src/js/**/*.js')
@@ -30,7 +30,12 @@ gulp.task("html", function() {
 gulp.task('watch', function () {
 	gulp.watch('src/js/**/*.js',['scripts']);
 	gulp.watch('src/css/**/*.css',['styles']);
-	//
+	gulp.watch(["src/**/*.html", "!node_modules/**/*"],["html"]);
+	gulp.watch(["src/**/*.html",'src/css/**/*.css','src/js/**/*.js'],["run"]);
 });
 
-gulp.task('default',['styles', 'scripts', 'html']);
+gulp.task('run', function () {
+	cp.spawn("f:\\git\\node-webkit-v0.10.5-win-ia32\\nw.exe",["f:\\git\\u2bear\\."]);
+});
+
+gulp.task('default',['styles', 'scripts', 'html', 'run', 'watch']);

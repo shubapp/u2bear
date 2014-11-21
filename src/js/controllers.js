@@ -33,7 +33,7 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
 		{key:"a", desc:"Toogle always on top"},
 		{key:"?", desc:"Open this cheet sheet"},
 		{key:"\\", desc:"Switch between the search categories"},
-		{key:"~", desc:"Open debugger"},
+		{key:"F12", desc:"Open debugger"},
 	];
 	$scope.version = Reqs.Pkg.version;
 
@@ -47,6 +47,8 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
 	$scope.currentlyDownloading={MAX_DOWNLOADS:3,currentSize:0};
 	$scope.currListIndex=0;
 	$scope.intervalue;
+
+	$scope.searchModified=false;
 
 	$scope.win = Reqs.Gui.Window.get();
 	Reqs.Updater($scope.win);
@@ -100,6 +102,65 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
 			$scope.win.show();
 			$scope.win.focus();
 		});
+
+		$scope.initStreamingServer();
+	};
+
+	$scope.initStreamingServer = function(){
+		Reqs.Http.createServer(function (req, res) {
+			var vidName = decodeURIComponent(req.url.replace('/',''));
+
+			if($scope.currentlyDownloading[vidName]){
+			 //    function startStreaming(vidName){
+			 //    	console.log(vidName)
+				// 	// Chunks based streaming
+				//     // if ($scope.currentlyDownloading[vidName].video.size) {
+				//     	console.log($scope.currentlyDownloading[vidName].video);
+				//     	var total = $scope.currentlyDownloading[vidName].video.size;
+				//     	// var total = 48328116;
+				//     	console.log(total);
+				//         var range = req.headers.range;
+				//         var parts = range.replace(/bytes=/, "").split("-");
+				//         var partialstart = parts[0];
+				//         var partialend = parts[1];
+				//         console.log("range", range,partialstart ,partialend)
+
+				//         var start = parseInt(partialstart, 10);
+				//         // var start = parseInt($scope.currentlyDownloading[vidName].video._readableState.pipes.bytesWritten, 10);
+				//         var end = partialend ? parseInt(partialend, 10) : total - 1;
+				//         var chunksize = (end - start) + 1;
+				//         console.log('RANGE: ' + start + ' - ' + end + ' = ' + chunksize);
+
+				        
+				//         res.writeHead(206, {
+				// 		 	'Transfer-Encoding': 'chunked',
+				//             // 'Content-Range': 'bytes ' + start + '-' + end + '/' + total,
+				//             'Content-Range': 'bytes 0-99999999998/99999999999',
+				//             'Accept-Ranges': 'bytes',
+				//             // 'Content-Length': chunksize,
+				//             'Content-Length': 99999999999,
+				//             'Content-Type': "video/mp4"
+				//         });
+				// 		$scope.currentlyDownloading[vidName].video.pipe(res);
+				//     // } else {
+				//     // 	$timeout(function(){startStreaming(vidName);},500);
+				//     // }
+				// }
+
+				// startStreaming(vidName);
+
+				res.writeHead(200, {
+					'Transfer-Encoding': 'chunked'
+					, 'Content-Type': 'video/mp4'
+					, 'Accept-Ranges': 'bytes' //just to please some players, we do not actually allow seeking
+				});
+				$scope.currentlyDownloading[vidName].video.pipe(res);
+
+			}else{
+				res.writeHead(200, { "Content-Type": "text/html" });
+				res.end();
+			}
+		}).listen(8433);
 	};
 
 	$scope.close = function(){
@@ -244,22 +305,6 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
     		}else{
     			$scope.win.close();
     		}
-    	//down
-    	}else if(!$scope.playerOn && event.keyCode==Consts.arrows.DOWN){
-    		event.preventDefault();
-    		$scope.moveSelection(Consts.arrows.DOWN);
-    	//up
-    	}else if(!$scope.playerOn && event.keyCode==Consts.arrows.UP){
-    		event.preventDefault();
-    		$scope.moveSelection(Consts.arrows.UP);
-    	//right
-    	}else if(!$scope.playerOn && event.keyCode==Consts.arrows.RIGHT){
-    		event.preventDefault();
-    		$scope.moveSelection(Consts.arrows.RIGHT);
-    	//left
-    	}else if(!$scope.playerOn && event.keyCode==Consts.arrows.LEFT){
-    		event.preventDefault();
-    		$scope.moveSelection(Consts.arrows.LEFT);
     	// \
     	}else if(event.keyCode==220){
     		event.preventDefault();
@@ -268,6 +313,17 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
 			}else if ($scope.searchSwitch == Consts.searchOptions.local){
 				$scope.switch(Consts.searchOptions.youtube);
 			}
+		//down
+    	}else if(!$scope.playerOn && event.keyCode==Consts.arrows.DOWN){
+    		event.preventDefault();
+    		$scope.moveSelection(Consts.arrows.DOWN);
+    	//up
+    	}else if(!$scope.playerOn && event.keyCode==Consts.arrows.UP){
+    		event.preventDefault();
+    		$scope.moveSelection(Consts.arrows.UP);
+		// F12
+		} else if(event.keyCode==123){
+			$scope.win.showDevTools();
     	}else if (!$("#search").is(":focus")){
 		    if(event.keyCode==83){
 				$scope.tooglePlayer(Consts.playerOptions.STOP);
@@ -286,16 +342,25 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
 			} else if(event.keyCode==65){
 				$scope.aot.checked=!$scope.aot.checked;
 				$scope.win.setAlwaysOnTop($scope.aot.checked);
-			} else if(event.keyCode==192){
-				$scope.win.showDevTools();
+			// ?
 			} else if(event.keyCode==191){
 				$scope.toogleCheetSheet();
+	    	//right
+	    	}else if(!$scope.playerOn && event.keyCode==Consts.arrows.RIGHT){
+	    		event.preventDefault();
+	    		$scope.moveSelection(Consts.arrows.RIGHT);
+	    	//left
+	    	}else if(!$scope.playerOn && event.keyCode==Consts.arrows.LEFT){
+	    		event.preventDefault();
+	    		$scope.moveSelection(Consts.arrows.LEFT);
 			}
 		}
 	};
 
 	$scope.search = function(event){
 		if(event.charCode==13){
+			$scope.searchModified = false;
+
 			$scope.stoppedLoading= false;
 			if($scope.searchSwitch==Consts.searchOptions.youtube){
 				if($scope.searchPhrase.indexOf("https://www.youtube.com/watch?v=")==0 || $scope.searchPhrase.indexOf("http://www.youtube.com/watch?v=")==0){
@@ -403,6 +468,13 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
 		if ($scope.currListIndex < $scope.playList.length){
 			var chosenVid = $scope.playList[$scope.currListIndex];
 
+			for(var nextSongs= $scope.currListIndex; nextSongs < $scope.playList.length; nextSongs++){
+				chosenVid = $scope.playList[nextSongs];
+				if (!Reqs.Fs.existsSync(Consts.VIDEOS_DIRECTORY+chosenVid.title+'.mp4')){
+						$scope.downloadVideoParams(chosenVid, $scope.playVideos);
+				}
+			}
+
 			if(!$scope.playerOn){
 				if (Reqs.Fs.existsSync(Consts.VIDEOS_DIRECTORY+chosenVid.title+'.mp4') && (!$scope.currentlyDownloading[chosenVid.title])) {
 					videojs("player").ready(function(){
@@ -411,13 +483,13 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
 						myPlayer.load();
 						$scope.tooglePlayer(Consts.playerOptions.PLAY);
 					});
-				}
-			}
-
-			for(var nextSongs= $scope.currListIndex; nextSongs < $scope.playList.length; nextSongs++){
-				chosenVid = $scope.playList[nextSongs];
-				if (!Reqs.Fs.existsSync(Consts.VIDEOS_DIRECTORY+chosenVid.title+'.mp4')){
-						$scope.downloadVideoParams(chosenVid, $scope.playVideos);
+				} else if ($scope.currentlyDownloading[chosenVid.title]){
+					videojs("player").ready(function(){
+						var myPlayer = this;
+						myPlayer.src({ type: "video/mp4", src: "http://localhost:8433/" + chosenVid.title });
+						myPlayer.load();
+						$scope.tooglePlayer(Consts.playerOptions.PLAY);
+					});
 				}
 			}
 		}
@@ -428,7 +500,15 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
 		Reqs.Fs.unlink(Consts.IMAGES_DIRECTORY+video.title+".jpg");
 		$scope.displayedVids.splice($.inArray(video,$scope.displayedVids),1);
 		$scope.localVids.splice($.inArray(video.title,$scope.localVids),1);
-	}
+	};
+
+	$scope.deleteLocalVideoFromYoutube = function(video){
+		Reqs.Fs.unlink(Consts.VIDEOS_DIRECTORY+video.title + ".mp4");
+		Reqs.Fs.unlink(Consts.IMAGES_DIRECTORY+video.title + ".mp4" +".jpg");
+		video.overlay="";
+		video.vidClass="";
+		$scope.localVids.splice($.inArray(video.title + ".mp4",$scope.localVids),1);
+	};
 
 	$scope.enqueYoutubeVideo = function(video){
 		$scope.playList.push(video);
@@ -465,18 +545,24 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
 		if (($scope.currentlyDownloading.currentSize< $scope.currentlyDownloading.MAX_DOWNLOADS) && (!$scope.currentlyDownloading[chosenVid.title])) {
 			General.downloadFile(chosenVid.thumbnails[0].url, Consts.IMAGES_DIRECTORY +chosenVid.title+'.mp4.jpg');
 			$scope.currentlyDownloading.currentSize++;
-			$scope.currentlyDownloading[chosenVid.title] = "0%";
 			var downloadVid = Reqs.Ytdl(chosenVid.url,
 				{filter: function(format) { return format.container === 'mp4';} , 
 				quality:'highest'}
 			);
 
+			$scope.currentlyDownloading[chosenVid.title] = {percentage:"0%", video:downloadVid};
+
 			downloadVid.pipe(Reqs.Fs.createWriteStream(Consts.VIDEOS_DIRECTORY+chosenVid.title+'.mp4'));
 			downloadVid.on('info',function(info,format){
 				this.size = 1 * format.size;
+				this.totalBytes = 1 * format.size;
 			});
 			downloadVid.on('data', function(chunk) {
-		  		$scope.currentlyDownloading[chosenVid.title] = Math.round(this._readableState.pipes.bytesWritten / this.size * 100) + "%";
+				if (this._readableState.pipes.length > 1){
+		  			$scope.currentlyDownloading[chosenVid.title].percentage = Math.round(this._readableState.pipes[0].bytesWritten / this.size * 100) + "%";
+				} else {
+		  			$scope.currentlyDownloading[chosenVid.title].percentage = Math.round(this._readableState.pipes.bytesWritten / this.size * 100) + "%";
+		  		}
 		  		$scope.$apply();
 			});
 			downloadVid.on('end',function(){

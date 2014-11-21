@@ -3,7 +3,7 @@
 		<span class="switches" ng-class="{active:searchSwitch==1}" ng-click="switch(1)"><i class="fa fa-youtube"></i></span>
 		<span class="switches" ng-class="{active:searchSwitch==2}" ng-click="switch(2)"><i class="fa fa-folder"></i></span>
 		
-		<input id="search" ng-model="searchPhrase" dir="auto" type="search" placeholder="Search phrase \ Youtube url" ng-keypress="search($event)" />
+		<input id="search" ng-model="searchPhrase" ng-class="{'changed':searchModified}" ng-change="searchModified=true;" dir="auto" type="search" placeholder="Search phrase \ Youtube url" ng-keypress="search($event)" />
 		<span class="spacer"></span>
 		
 		<span class="titleButton" ng-click="toogleCheetSheet()"><i class="fa fa-question-circle"></i></span>

@@ -10,7 +10,7 @@ body{
 	padding-top: 4px;
 	width: 100%;
 	border-radius: 7px;
-	background-color: rgb(255, 255, 255);
+	background-color: #ffffff;
 	color: black;
 	font-size: 1em;
 	margin:	-7px 0.5em 0 0.5em;
@@ -293,3 +293,7 @@ body{
 /*.switchResultContainer.ng-leave,.switchResultContainer.ng-enter.ng-enter-active{
 	top: -100% !important;
 }*/
+
+#search.changed{
+	background-color: #FC8F39;
+}
