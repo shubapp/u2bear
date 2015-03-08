@@ -33,7 +33,7 @@ body{
 .result {
 	position: relative;
 	display: inline-block;
-	margin: 1em 2em;
+	margin: 1em 0.7em;
 	width: 25em;
 	background-color: rgb(58, 58, 58);
 	padding:1em 0;

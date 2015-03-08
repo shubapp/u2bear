@@ -9,7 +9,7 @@
   "window": {
     "title": "u2bear",
     "icon": "u2bearFlat.png",
-    "width": 1450,
+    "width": 1300,
     "height": 800,
     "toolbar": false,
     "frame": false

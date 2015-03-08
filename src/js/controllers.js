@@ -187,7 +187,7 @@ controllers.introCtrl = ['$scope', '$location', '$timeout', 'Reqs', 'Consts', 'G
 		clearInterval($scope.intervalue);
 		$scope.superFullscreen = false;
 		$scope.$apply();
-		$scope.intervalue = setInterval($scope.fuller,3000);
+		$scope.intervalue = setInterval($scope.fuller,3500);
 	}
 
 	$scope.$watch('playerOn',function(newValue){

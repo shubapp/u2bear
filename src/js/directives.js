@@ -78,7 +78,7 @@ directives.autoFocus = ['$timeout', function($timeout){
 					
 					$('#resultContainer').animate({
 				        scrollTop: currLineNumber * $(".result").outerHeight(true)
-				    }, 500);
+				    }, 300);
 				    
 				    $timeout(function(){
 				    	$(".overlay.selected .fa-film,.fa-play").focus();
