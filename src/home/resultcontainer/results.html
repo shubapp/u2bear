@@ -1,0 +1,32 @@
+<center>
+	<div id="resultContainer" ng-if="resultsCtrl.searchSwitch==1" scroll="resultsCtrl.loadMore()" class="switchResultContainer">
+		<span ng-repeat="video in resultsCtrl.displayedVids" class="result" enter="resultsCtrl.enqueYoutubeVideo(video)">
+			<div class="vidTime">{{video.duration|time}}</div>
+			<div class="overlay" ng-class="video.overlay">
+				<i class='fa fa-trash-o' ng-if="video.vidClass=='success'" ng-click="resultsCtrl.deleteLocalVideoFromYoutube(video)"></i>
+				<i class='fa fa-info-circle' ng-if="video.vidClass!='success'" ng-click="resultsCtrl.youtubeInfo(video)"></i>
+				<i class='fa fa-headphones' ng-class="video.audClass" ng-click="resultsCtrl.downloadMp3(video)"></i>
+				<i class='fa fa-film' tabindex="{{$index}}" ng-class="video.vidClass" ng-click="resultsCtrl.enqueYoutubeVideo(video)"></i>
+				<!-- <i class='fa fa-play' ng-click="streamIt(video)"></i> -->
+				<div class='progressbarContainer' data-width='{{resultsCtrl.currentlyDownloading[video.title].percentage}}'>
+					<div class='progressbarValue'ng-style="{width:resultsCtrl.currentlyDownloading[video.title].percentage}"></div>
+				</div>
+			</div>
+			<img ng-src="{{video.thumbnails[0].url}}" />
+			<div dir='auto' class='vidTitle'>{{video.title}}</div>
+		</span>
+	</div>
+
+	<div id="resultContainer" ng-if="resultsCtrl.searchSwitch==2" class="switchResultContainer">
+		<span ng-repeat="video in resultsCtrl.displayedVids|orderBy:video.title|filter:resultsCtrl.searchPhrase" class='result' enter="resultsCtrl.playLocalVideo(video)">
+			<div class='overlay' ng-class="video.overlay">
+				<i class='fa fa-trash-o' ng-click="resultsCtrl.deleteLocalVideo(video)"></i>
+				<i class='fa fa-play' tabindex="{{$index*10+2}}" ng-click="resultsCtrl.playLocalVideo(video)"></i>
+				<i class='fa fa-plus-square-o' tabindex="{{$index*10+3}}" ng-click="resultsCtrl.enqueLocalVideo(video)"></i>
+			</div>
+			<img ng-src="{{resultsCtrl.IMAGES_DIRECTORY}}/{{video.title}}.jpg"/>
+			<div dir='auto' class='vidTitle'>{{video.title}}</div></span>		
+	</div>
+
+	<div id="loading" class="fa fa-spinner fa-spin" ng-class="{hidden:resultsCtrl.stoppedLoading}"></div>
+</center>

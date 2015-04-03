@@ -1,6 +1,17 @@
 {
   "name": "u2bear",
   "version": "0.3.0",
+  "description": "The best youtube player there is",
+  "main": "build/index.html",
+  "keywords": [
+    "u2bear",
+    "youtube",
+    "download",
+    "videos",
+    "songs",
+    "mp3"
+  ],
+  "license": "MIT",
   "author": "Dean Shub <dean@shubapp.com>",
   "manifestUrl": "https://github.com/shubapp/u2bear/raw/master/package.json",
   "packages": {
@@ -11,26 +22,31 @@
     "icon": "u2bearFlat.png",
     "width": 1300,
     "height": 800,
-    "toolbar": false,
-    "frame": false
+    "frame": false,
+    "toolbar": false
   },
   "webkit": {
     "plugin": true
   },
   "dependencies": {
-    "youtube-search": "0.1.4",
-    "youtube-mp3": "0.1.2",
-    "request": "2.37.0",
-    "node-webkit-updater": "0.0.2",
-    "ytdl-core": "^0.2.4",
+    "ytdl-core": "^0.5.0",
+    "youtube-search": "^0.2.0",
+    "youtube-mp3": "^0.1.2",
+    "request": "^2.53.0",
     "http": "0.0.0"
   },
-  "main": "index.html",
   "devDependencies": {
     "gulp": "^3.8.10",
-    "gulp-uglify": "^1.0.1",
+    "gulp-bower": "0.0.10",
+    "gulp-clean": "^0.3.1",
     "gulp-cssshrink": "^0.1.4",
+    "gulp-htmlmin": "^0.2.0",
+    "gulp-inject": "^1.2.0",
+    "gulp-install": "^0.2.0",
     "gulp-plumber": "^0.6.6",
-    "gulp-htmlmin": "^0.2.0"
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^1.0.1",
+    "gulp-zip": "^2.0.3",
+    "main-bower-files": "^2.5.0"
   }
 }

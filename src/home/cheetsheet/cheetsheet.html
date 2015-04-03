@@ -1,0 +1,25 @@
+<div id="cheetsheet" class="container" ng-class="{hidden: cheetsheetCtrl.hideCheetsheet}">
+	<div>
+		<h1>U2Bear - {{cheetsheetCtrl.version}}</h1>
+		<h2>This application is used to download and play videos.</h2>
+		<h3>These are a faw hot keys defined to give you super power:</h3>
+	</div>
+	<table>
+		<thead>
+			<tr>
+				<th>Key</th><th></th><th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="cheet in cheetsheetCtrl.cheetSheetKeys">
+				<td>{{cheet.key}}</td>
+				<td> - </td>
+				<td>{{cheet.desc}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<br/>
+	<button class="close" ng-click="cheetsheetCtrl.toogleCheetSheet()">Thanks</button>
+	<br/>
+	<br/>
+</div>

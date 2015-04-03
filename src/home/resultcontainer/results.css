@@ -1,0 +1,151 @@
+#resultContainer{
+	overflow-y: auto;
+	overflow-x: hidden;
+	margin-right: -9px;
+	top: 3.8em;
+	bottom: 2.7em;
+	left: 0;
+	right: 0.6em;
+	position: absolute;
+	background-image: url('../../img/u2bearFlat.png');
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-size:50%;
+}
+.result {
+	position: relative;
+	display: inline-block;
+	margin: 1em 0.7em;
+	width: 25em;
+	background-color: rgb(58, 58, 58);
+	padding:1em 0;
+	height: 20em;
+	-webkit-app-region: no-drag;
+	-webkit-transition:0.5s linear all;
+}
+.result.ng-enter-stagger,.result.ng-leave-stagger{
+	transition-delay: 0.3s;
+}
+.result.ng-enter,.result.ng-leave.ng-leave-active{
+	opacity: 0;
+}
+.result.ng-leave,.result.ng-enter.ng-enter-active{
+	opacity: 1;
+}
+.result img{
+	max-width: 392px;
+	max-height: 294px;
+	width: 98%;
+}
+.result:hover .overlay,.result .overlay.active{
+	background-color: rgba(12, 12, 12, 0);
+	top:0;
+	visibility: visible;
+}
+.result .overlay.selected{
+	background-color: rgba(255, 255, 255, 0.33);
+	top:0;
+	visibility: visible;
+}
+.result .overlay {
+	-webkit-transition:top 1s;
+	position: absolute;
+	top:100%;
+	bottom:0;
+	left:0;
+	right:0;
+	visibility:hidden;
+	font-size: 3.2em;
+	color: white;
+	text-shadow: 2px 2px black;
+	overflow: hidden;
+}
+.result .overlay i{
+	margin: 40% 0.5em 22%;
+	cursor:pointer;
+}
+.result .overlay i:hover{
+	text-shadow:none;
+	padding-top: 1px;
+}
+
+.result .overlay .progressbarContainer{
+	height: 15%;
+	background-color: rgb(87, 87, 86);
+	padding: 0 10px;
+	visibility: hidden;
+}
+.result .overlay .progressbarContainer:before {
+	content: attr(data-width);
+	font-size: 0.5em;
+	position: absolute;
+	margin: 2% auto;
+	width: 100%;
+	left: 0;
+	right: 0;
+	color: black;
+	z-index: 10;
+	text-shadow:none;
+}
+.result .overlay .progressbarValue{
+	background-color: white;
+	height: 30%;
+	border-radius: 4px;
+	float: left;
+	margin: 5% 0;
+	position: relative;
+	-webkit-transition: width 1s;
+}
+
+.downloading+.progressbarContainer{
+	visibility:  visible !important;
+}
+
+.downloading{
+	color: rgb(255, 255, 65);
+}
+.success{
+	color: rgb(79, 226, 79);
+	/*cursor: default !important;*/
+}
+.failure{
+	color: rgb(255, 45, 45);
+}
+
+
+
+
+.vidTitle{
+	height: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 1.5em;
+	color:white;
+}
+.vidTime{
+	height: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 1.5em;
+	color:white;
+	position: absolute;
+	left: 40%;
+}
+
+#loading{
+	font-size: 5em;
+	color: white;
+	top: 20%;
+	position: absolute;
+	left: 47%;
+}
+
+.switchResultContainer{
+	-webkit-transition:1s linear all;
+}
+.switchResultContainer.ng-enter,.switchResultContainer.ng-leave.ng-leave-active{
+	top: +100% !important;
+}
+/*.switchResultContainer.ng-leave,.switchResultContainer.ng-enter.ng-enter-active{
+	top: -100% !important;
+}*/

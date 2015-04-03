@@ -1,0 +1,12 @@
+<div class="playerBar">
+	<i class='fa fa-step-backward' ng-click="playerBarCtrl.prevVideo()"></i>
+	<i class='fa fa-stop' ng-click="playerBarCtrl.stop()"></i>
+	<i class="fa fa-video-camera" ng-class="{'active':!playerBarCtrl.backgroundPlayer}" ng-click="playerBarCtrl.operateBackground()"></i>
+	<i class='fa' ng-class="playerBarCtrl.playerPlay" ng-click="playerBarCtrl.pause()"></i>
+	<i class='fa fa-step-forward' ng-click="playerBarCtrl.nextVideo()"></i>
+	<i class='fa fa-retweet' ng-class="{'active':playerBarCtrl.repeatOn}" ng-click="playerBarCtrl.repeat()"></i>
+	<!-- <i class='fa fa-spinner fa-spin'></i> -->
+	<span dir="auto">{{playerBarCtrl.playList[playerBarCtrl.currListIndex]}}</span>
+	<i class='fa fa-long-arrow-right' ng-class="{hidden:playerBarCtrl.playList[playerBarCtrl.currListIndex+1]==undefined}"></i>
+	<span dir="auto" ng-class="{hidden:playerBarCtrl.playList[playerBarCtrl.currListIndex+1]==undefined}">{{playerBarCtrl.playList[playerBarCtrl.currListIndex+1]}}</span>
+</div>

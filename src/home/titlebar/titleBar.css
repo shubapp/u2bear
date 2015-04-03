@@ -1,0 +1,62 @@
+#search{
+	outline:0;
+	padding-left:1em;
+	padding-top: 4px;
+	width: 100%;
+	border-radius: 7px;
+	background-color: #ffffff;
+	color: black;
+	font-size: 1em;
+	margin:	-7px 0.5em 0 0.5em;
+	-webkit-app-region: no-drag;
+}
+.titleBar{
+	background-color:rgb(224, 224, 224);
+	height: 1.5em;
+	color: white;
+	font-size: 1.5em;
+	padding-top: 0.7em;
+	padding-bottom: 0.3em;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	border-bottom: 1px black solid;
+	z-index: 10;
+	-webkit-user-select: none;
+  	-webkit-app-region: drag;
+  	display: table;
+}
+.switches{
+	margin: 0 0.5em;
+	color:gray;
+	cursor: pointer;
+	-webkit-app-region: no-drag;
+	text-align: center;
+	width: 2.5em;
+	display: table-cell;	
+}
+.switches.active{
+	color: rgb(255, 45, 45);
+}
+.spacer{
+	display: table-cell;
+	width: 0.5em;
+}
+.titleButton{
+	cursor: pointer;
+	color: gray;
+	font-weight: bold;
+  	-webkit-app-region: no-drag;
+  	-webkit-transition: color 1s;
+  	margin: 0 0.5em;
+	text-align: center;
+	width: 2em;
+  	display: table-cell
+}
+.titleButton:hover{
+	color:rgb(255, 45, 45);
+}
+#search.changed{
+	background-color: #FC8F39;
+}

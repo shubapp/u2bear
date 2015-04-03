@@ -7,26 +7,23 @@
 
 	<title>U2Bear</title>
 
-	<link rel="stylesheet" type="text/css" href="css/alef.css">
-	<link rel="stylesheet" type="text/css" href="css/opensans.css">
-	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/video-js.css">
-	<link rel="stylesheet" type="text/css" href="css/interface.css">
+	<!-- bower:css -->
+    <!-- endinject -->
+    <!-- inject:css -->
+    <!-- endinject -->
 </head>
 
-<body ng-controller="introCtrl" ng-keydown="keyPreesed($event)">
+<body ng-controller="homeCtrl as homeCtrl" ng-keydown="homeCtrl.keyPreesed($event)">
 	<title-bar></title-bar>
-	<div ng-view></div>
+	<areyousure></areyousure>
+	<cheetsheet></cheetsheet>
+	<player-container ng-class="{'active': playerBarCtrl.playerActive, 'background': playerBarCtrl.backgroundPlayer, 'fullscreen': playerBarCtrl.superFullscreen}" on-end="playerBarCtrl.nextVideo()"></player-container>
+	<results></results>
 	<player-bar></player-bar>
-<script type="text/javascript" src="js/lib/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="js/lib/angular.min.js"></script>
-<script type="text/javascript" src="js/lib/angular-route.min.js"></script>
-<script type="text/javascript" src="js/lib/angular-animate.min.js"></script>
-<script type="text/javascript" src="js/lib/video.js"></script>
-<script type="text/javascript" src="js/filters.js"></script>
-<script type="text/javascript" src="js/services.js"></script>
-<script type="text/javascript" src="js/directives.js"></script>
-<script type="text/javascript" src="js/controllers.js"></script>
-<script type="text/javascript" src="js/app.js"></script>
+<!-- bower:js -->
+<!-- endinject -->
+<!-- inject:js -->
+<!-- endinject -->
+
 </body>
 </html>

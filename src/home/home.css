@@ -1,0 +1,39 @@
+body{
+	font-family: 'Open Sans','Alef';
+	background-color:rgb(31, 30, 30);
+	margin-top: 3.7em;
+	overflow: hidden;
+}
+.hidden{
+	visibility: hidden;
+	display: none;
+}
+
+#areyousure{
+	position: absolute;
+	top: 15%;
+	left: 25%;
+	background-color: rgb(58, 58, 58);
+	color: white;
+	border: 1px solid white;
+	border-radius: 5px;
+	padding: 1em 2em;
+	z-index: 600;
+	font-size: 2em;
+}
+
+#areyousure button{
+	background-color: rgb(255, 45, 45);
+	color: rgb(255, 255, 255);
+	border: 1px solid white;
+	font-size: 1em;
+	border-radius: 0px;
+	cursor: pointer;
+	outline:0;
+  	margin: 0 0.8em;
+}
+
+#areyousure .buttonGroup{
+  margin-left: 30%;
+  margin-top: 5%;
+}
