@@ -56,20 +56,7 @@
 						ytdlOptions.startIndex=1;
 						Reqs.Search(self.searchPhrase, self.ytdlOptions, function(err, results) {
 						  if(!err) {
-						  	showResaults($.map(results, function(elem){
-						  		elem.title = General.validateVideoName(elem.title);
-						  		if (self.currentlyDownloading[elem.title]){
-						  			elem.vidClass = 'downloading';
-						  			elem.overlay='active';
-						  		} else if ($.inArray(elem.title+'.mp4', localVids)!=-1){
-						  			elem.vidClass = 'success';
-						  			elem.overlay='active';
-						  		} else if ($.inArray(elem.title+'.mp3', localSongs)!=-1){
-						  			elem.audClass = 'success';
-						  			elem.overlay='active';
-						  		}
-						  		return elem;
-						  	}));
+						  	showResaults(results);
 							$scope.$apply();
 						  }
 						});
@@ -211,6 +198,7 @@
 		}
 
 		function downloadVideoParams(chosenVid){
+			console.log(chosenVid.title);
 			chosenVid.vidClass = 'downloading';
 			chosenVid.overlay='active';
 			self.currentlyDownloading[chosenVid.title] = {percentage:'0%', vidElement:chosenVid, downloading:false};
@@ -318,6 +306,22 @@
 		}
 
 		function showResaults(results){
+			if(self.searchSwitch==Consts.searchOptions.youtube){
+				results.map(function(elem){
+					elem.title = General.validateVideoName(elem.title);
+			  		if (self.currentlyDownloading[elem.title]){
+			  			elem.vidClass = 'downloading';
+			  			elem.overlay='active';
+			  		} else if ($.inArray(elem.title+'.mp4', localVids)!=-1){
+			  			elem.vidClass = 'success';
+			  			elem.overlay='active';
+			  		} else if ($.inArray(elem.title+'.mp3', localSongs)!=-1){
+			  			elem.audClass = 'success';
+			  			elem.overlay='active';
+			  		}
+			  		return elem;
+				});
+			}
 			self.displayedVids = results;
 			self.stoppedLoading = true;
 		}

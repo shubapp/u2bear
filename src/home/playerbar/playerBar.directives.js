@@ -11,10 +11,13 @@
                   '<source id="source" src="" type="video/mp4" />' +
                   '</video>',
                   link:function(scope, element, attrs) {
-                  	videojs('player').on('ended', function(){
-                  		scope.$eval(attrs.onEnd);
-                  		scope.$apply();
-                  	});
+                        videojs('player').on('ended', endHandler);
+                        videojs('player').on('error', endHandler);
+                        
+                        function endHandler(){
+                              scope.$eval(attrs.onEnd);
+                              scope.$apply();
+                        }
                   	// todo: move this to next video and just in the case of end of videos
                   	$('#search').focus();
                   }
