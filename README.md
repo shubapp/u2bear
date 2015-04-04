@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/shubapp/u2bear.png?label=ready&title=Ready)](https://waffle.io/shubapp/u2bear)
 # U2Bear
 ![](http://i.imgur.com/Vei5l24.gif)
 
