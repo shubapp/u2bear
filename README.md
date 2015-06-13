@@ -1,4 +1,5 @@
 # U2Bear
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/shubapp/u2bear?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ![](http://i.imgur.com/Vei5l24.gif)
 
 
